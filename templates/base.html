@@ -25,21 +25,26 @@
   </head>
   <body>
     <header class="container-fluid fixed-top">
+      {% include "include/header.html" %}
+    </header>
+    <div class=" pb-5 mb-5"></div>
+    <div class="mt-5 pt-5">
         {% if messages %}
-            <div class="message-container"> 
-
+            <div class=" row text-center"> 
+              {% for message in messages %}
+                <div{% if message.tags %} class="col-9 mx-auto alert {{ message.tags }}"{% endif %}>{{ message }}</div>
+              {% endfor %}
             </div>
         {% endif %}
-
+    </div>
         {% block page-header %}
         {% endblock  %}
-
+        
         {% block content  %}
         {% endblock  %}
 
         {% block post-js %}
         {% endblock  %}
-        
-    </header>
+        {% include "include/footer.html" %}
   </body>
 </html>

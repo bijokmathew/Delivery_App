@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content  %}
+    <main class="container my-5" style="max-width:900px">
+        <div class="row">
+            <div class="col-12">
+                <div class="fw-bold fs-5 mb-2 text-decoration-underline">List of all items</div>
+                    <table class="table table-bordered border-secondary">
+                        <thead>
+                            <tr>
+                              <th scope="col">Order ID</th>
+                              <th scope="col">Order Address</th>
+                              <th scope="col">Order Item</th>
+                              <th scope="col">Order Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for order in orders  %}
+                                <tr>
+                                    <th scope="row">{{order.id}}</th>
+                                    <th>{{order.street_address1}}</th>
+                                    <th>
+                                    {% for product in order.product.all  %}
+                                       <div> {{product.name}}</div>
+                                    {% endfor %}
+                                </th>
+                                    <th>{{order.status}}</th>
+                                </tr>
+                                
+                            {% endfor %}
+                          </tbody>
+                    </table>
+
+            </div>
+
+        </div>
+
+    </main>
+{% endblock  %}

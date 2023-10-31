@@ -5,6 +5,10 @@ from .forms import ProductForm
 
 # Create your views here.
 
+def get_all_products(request):
+    products = Product.objects.all()
+    return products
+
 def add_product(request):
 
     if request.method == 'GET':

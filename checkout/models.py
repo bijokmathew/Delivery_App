@@ -13,12 +13,7 @@ class Order(models.Model):
         blank=False,
         editable=False
     )
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        blank=False,
-        null=False
-    )
+    product = models.ManyToManyField(Product,related_name='products')
 
     class OrderStatus(models.TextChoices):
         """
@@ -26,7 +21,8 @@ class Order(models.Model):
         """
         OPEN = 'Open', 'Order created and not assigned'
         ASSIGNED = 'Assigned', 'Order Assigned for delivery'
-        DELIVERED = 'Delivers', 'Order delivered to the customer'
+        DELIVERED = 'Delivered', 'Order delivered to the customer'
+        NOTDELIVERED = 'Not Delivered', 'Order undelivered to the customer'
 
     status = models.CharField(
         max_length=250,
@@ -49,6 +45,11 @@ class Order(models.Model):
         max_length=254,
         null=False,
         blank=False
+    )
+    delivery_email = models.EmailField(
+        max_length=254,
+        null=True,
+        blank=True
     )
     phone_number = models.CharField(
         max_length=20,
@@ -96,3 +97,7 @@ class Order(models.Model):
         editable=False
     )
     
+    order_update_date = models.DateField(
+        auto_now=True,
+        editable=False
+    )

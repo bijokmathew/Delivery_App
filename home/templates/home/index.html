@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <mani class="container py-5" style="max-width: 700px">
+        <div>
+            <ul class="list-group">
+                {% if not orders %}
+                    <p class="fw-bold text-center"> No new Order</p>
+                {% else %}
+                {% for order  in orders %}
+                        <li class="list-group-item">
+                            <div class="row"> 
+                                <div class="col-6">
+                                    <div class="fw-bold">
+                                        {% for product in order.product.all %}
+                                            <div> {{product.name}}</div>
+                                        
+                                        {% endfor %}
+                                        <br>
+                                            Address: {{order.street_address1}}
+                                            Eircode: {{order.postcode}}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <form method="POST" acton="{% url "home" %}">
+                                        {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input name="order_id" type="hidden" value={{order.order_number}}>
+                                            <select class="form-select" id="delivery_boy_email" name="divery_boy_email" aria-label="Delivery boy">
+                                                {% for delivery_boy in delivery_boys %}
+                                                    <option value="{{delivery_boy.email}}">{{delivery_boy.email}}</option>
+                                                {% endfor %}
+                                                <label for="delivery boy email" class="form-label">Select delivery boy</label>
+                                            </select>
+                                            <button type="submit" class="btn btn-primary">Assign</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>    
+    </main>
+{% endblock  %}

@@ -3,12 +3,12 @@ from django.urls import reverse
 from django.http import HttpResponse
 from checkout.models import Order
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+@login_required
 def home(request):
     print("home")
-    if not request.user.is_superuser:
+    if request.user.is_superuser:
       return reverse("account_login")
     else:
 

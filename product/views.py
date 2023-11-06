@@ -1,9 +1,20 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from product.models import Product
+from product.serializers import ProductSerialize
 from .forms import ProductForm
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
+
+class AllProducts(APIView):
+    def get(self, request, *args, **kwargs):
+        print("BKM AllProducts get ")
+        products = Product.objects.all()
+        print("BKM AllProducts get ",products )
+        serialized_products = ProductSerialize(products, many=True)
+        return Response(serialized_products.data,status=status.HTTP_200_OK)
 
 def get_all_products(request):
     products = Product.objects.all()

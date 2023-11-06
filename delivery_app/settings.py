@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-import jsonfield
+
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-e+y%!ey3hyguz=fmfa)knh3pm$a@cg7)adrvjfd@o+v+l0_sq#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
@@ -77,7 +77,9 @@ INSTALLED_APPS = [
     'product',
     'checkout',
     'crispy_forms',
+    'cart',
     'django.contrib.sites', # new
+    'rest_framework',
 
     'allauth', # new
     'allauth.account', # new
